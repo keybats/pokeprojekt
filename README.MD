@@ -1,4 +1,4 @@
-#Pokeprojekt
+# Pokeprojekt
 
 Programmet ska 
 - ha en lista med alla pokémonar och välja en randomly därifrån.
