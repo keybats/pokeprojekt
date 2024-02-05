@@ -1,0 +1,295 @@
+{
+
+  "tempMoves": [
+    {
+      "accuracy": 1,
+      "id": 1,
+      "ename": "Pound",
+      "moveType": "Normal",
+      "pp": 35,
+      "power": 40,
+      "category": "physical"
+
+    },
+    {
+      "accuracy": 0,
+      "id": 2,
+      "isAutoHit": true,
+      "ename": "Swift",
+      "moveType": "Normal",
+      "pp": 20,
+      "power": 60,
+      "category": "special"
+    },
+    {
+      "accuracy": 1,
+      "id": 3,
+      "ename": "Waterfall",
+      "moveType": "Water",
+      "pp": 20,
+      "power": 80,
+      "category": "physical",
+      "effect": {
+        "status": "flinch",
+        "chance": "0.2"
+      }
+    },
+    {
+      "accuracy": 0.85,
+      "id": 4,
+      "ename": "Fire Blast",
+      "moveType": "Fire",
+      "pp": 5,
+      "power": 110,
+      "category": "special",
+      "effect": {
+        "status": "burn",
+        "chance": 0.1
+      }
+    },
+    {
+      "accuracy": 1,
+      "category": "physical",
+      "ename": "Karate Chop",
+      "id": 2,
+      "power": 50,
+      "pp": 25,
+      "moveType": "Fighting",
+      "highCriticalHitRatio": true
+    },
+    {
+      "accuracy": 1,
+      "category": "physical",
+      "ename": "Ice Punch",
+      "id": 8,
+      "power": 75,
+      "pp": 15,
+      "moveType": "Ice",
+      "effect": {
+        "status": "freeze",
+        "chance": 0.1
+      }
+    },
+    {
+      "accuracy": 1,
+      "category": "physical",
+      "ename": "Thunder Punch",
+      "id": 9,
+      "power": 75,
+      "pp": 15,
+      "moveType": "Electric",
+      "effects": {
+        "status": "paralysis",
+        "chance": 0.1
+      }
+    },
+    {
+      "accuracy": 1,
+      "category": "physical",
+      "ename": "Vine Whip",
+      "id": 22,
+      "power": 45,
+      "pp": 25,
+      "moveType": "Grass"
+    },
+    {
+      "accuracy": 1,
+      "category": "physical",
+      "ename": "Poison Sting",
+      "id": 40,
+      "power": 15,
+      "pp": 35,
+      "moveType": "Poison",
+      "effect": {
+        "status": "poison",
+        "chance": 0.3
+      }
+    },
+    {
+      "accuracy": 1,
+      "category": "physical",
+      "ename": "Twineedle",
+      "id": 41,
+      "power": 25,
+      "pp": 20,
+      "moveType": "Bug",
+      "numberOfAdditionalAttacks": 1,
+      "effect": {
+        "status": "poison",
+        "chance": 0.1
+      }
+    },
+    {
+      "accuracy": 1,
+      "category": "physical",
+      "ename": "Bite",
+      "id": 44,
+      "power": 60,
+      "pp": 25,
+      "moveType": "Dark",
+      "effect": {
+        "status": "flinch",
+        "chance": 0.3
+      }
+    },
+    {
+      "accuracy": 1,
+      "category": "special",
+      "ename": "Psybeam",
+      "id": 60,
+      "power": 65,
+      "pp": 20,
+      "moveType": "Psychic",
+      "effect": {
+        "status": "confusion",
+        "chance": 0.1
+      }
+    },
+    {
+      "accuracy": 1,
+      "category": "physical",
+      "ename": "Drill Peck",
+      "id": 65,
+      "power": 80,
+      "pp": 20,
+      "moveType": "Flying",
+      "canHitNonAdjacent": true
+
+    },
+    {
+      "accuracy": 0.9,
+      "category": "physical",
+      "ename": "Rock Throw",
+      "id": 88,
+      "power": 50,
+      "pp": 15,
+      "moveType": "Rock"
+    },
+    {
+      "accuracy": 1,
+      "category": "physical",
+      "ename": "Earthquake",
+      "id": 89,
+      "power": 100,
+      "pp": 10,
+      "moveType": "Ground",
+      "canHitSemiInvulnerable": true,
+      "targetAllAdjacent": true
+
+    },
+    {
+      "accuracy": 1,
+      "category": "special",
+      "ename": "Shadow Ball",
+      "id": 247,
+      "power": 80,
+      "pp": 15,
+      "tm": 30,
+      "moveType": "Ghost",
+      "effect": {
+        "stat": "specialDefence",
+        "stages": -1,
+        "chance": 0.2
+      }
+    },
+    {
+      "accuracy": 0.75,
+      "category": "physical",
+      "ename": "Dragon Rush",
+      "id": 407,
+      "power": 100,
+      "pp": 10,
+      "moveType": "Dragon",
+      "effect": {
+        "status": "flinch",
+        "chance": 0.2
+      }
+    },
+    {
+      "accuracy": 1,
+      "category": "physical",
+      "ename": "Bullet Punch",
+      "id": 418,
+      "power": 40,
+      "pp": 30,
+      "moveType": "Steel",
+      "priority": 1
+    },
+    {
+      "accuracy": 1,
+      "category": "special",
+      "ename": "Dazzling Gleam",
+      "id": 605,
+      "power": 80,
+      "pp": 10,
+      "tm": 99,
+      "moveType": "Fairy",
+      "targetAllAdjacentEnemies": true
+    },
+    {
+      "ename": "acid",
+      "moveType": "Poison",
+      "category": "physical",
+      "power": 40,
+      "accuracy": 1,
+      "pp": 30,
+      "effect": {
+        "chance": 0.1,
+        "stat": "defense",
+        "stages": -1
+      }
+    },
+    {
+      "ename": "acid armor",
+      "moveType": "Poison",
+      "category": "status",
+      "power": 0,
+      "accuracy": 1,
+      "pp": 40,
+      "effect": {
+        "stat": "defense",
+        "stages": 2,
+        "affectedPokemon": "user"
+      }
+    },
+    {
+      "ename": "agility",
+      "moveType": "Psychic",
+      "category": "status",
+      "power": 0,
+      "accuracy": 1,
+      "pp": 30,
+      "effect": {
+        "stat": "speed",
+        "stages": 2,
+        "affectedPokemon": "user"
+      }
+    },
+    {
+      "ename": "amnesia",
+      "moveType": "Psychic",
+      "category": "status",
+      "power": 0,
+      "accuracy": 1,
+      "pp": 20,
+      "effect": {
+        "stat": "specialDefence",
+        "stages": 2,
+        "affectedPokemon": "user"
+      }
+    },
+    {
+      "ename": "aurora beam",
+      "moveType": "Ice",
+      "category": "special",
+      "power": 65,
+      "accuracy": 1.0,
+      "pp": 20,
+      "effect": {
+        "chance": 0.1,
+        "stat": "attack",
+        "stages": -1
+      }
+    }
+  ]
+}

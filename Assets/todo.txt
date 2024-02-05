@@ -1,0 +1,10 @@
+todo
+- abilities
+- multiple pokemon battles
+- items
+- battles
+- more moves
+- visuals
+- catching pokemon
+- evolution
+- Overworld
