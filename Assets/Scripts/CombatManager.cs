@@ -16,6 +16,11 @@ public class CombatManager : MonoBehaviour
 
     float confusionAttackPower = 40f;
 
+
+
+    [SerializeField] Queue<Vector2> playerPokemonPositions = new Queue<Vector2>();
+    [SerializeField] Queue<Vector2> enemyPokemonPositions = new Queue<Vector2>();
+
     float burnDamageMultiplier;
     readonly float ExpMultiplier = 0.21f;
     int numberOfPokemonPerTeam;
@@ -53,9 +58,19 @@ public class CombatManager : MonoBehaviour
         
         
     }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+
+        }
+    }
+
     public void StartGame()
     {
         CombatStart(1, 8);
+
     }
 
     public void CombatStart(int numberOfOpponents, int opponentLevels)
@@ -68,6 +83,34 @@ public class CombatManager : MonoBehaviour
             battlingPokemon.Add(newBattlingPokemon);
         }
         numberOfPokemonPerTeam = numberOfOpponents;
+
+        foreach (PositionTag position in FindObjectsOfType<PositionTag>())
+        {
+            Debug.Log(position.name + " " + position.transform.position);
+            if (position.isPlayerPosition)
+            {
+                playerPokemonPositions.Enqueue(position.transform.position);
+            }
+            else
+            {
+                enemyPokemonPositions.Enqueue(position.transform.position);
+            }
+        }
+
+        foreach (MonScript pokemon in battlingPokemon)
+        {
+            
+            if (pokemon.isPlayerPokemon)
+            {
+                Debug.Log(pokemon.name + " " + pokemon.transform.position + " moving to " + playerPokemonPositions.Peek());
+                
+                pokemon.transform.position = playerPokemonPositions.Dequeue();
+            }
+            else
+            {
+                pokemon.transform.position = enemyPokemonPositions.Dequeue();
+            }
+        }
     }
 
     public void Attack(MonScript target, MonScript attacker, AttackScript move)
@@ -274,14 +317,20 @@ public class CombatManager : MonoBehaviour
 
                     Attack(target, pokemon, pokemon.moves[Random.Range(0, 4)]);
                 }
+
+                
+                
                 else
                 {
+                    foreach (MonScript mon in FindObjectsOfType<MonScript>())
+                    {
+                        if (mon != pokemon)
+                        {
+                            playerTarget = mon;
+                        }
+                    }
                     Attack(playerTarget, pokemon, pokemon.moves[moveNumber]);
                 }
-            }
-            else
-            {
-                pokemon.Faint();
             }
         }
         
@@ -330,26 +379,46 @@ public class CombatManager : MonoBehaviour
             }
             if (pokemon.hasFainted)
             {
-                pokemon.Faint();
+                OnPokeFaint(pokemon);
+                
             }
         }
+        BroadcastMessage("removeFromBattle");
     }
     public void OnPokeFaint(MonScript faintedPokemon)
     {
+        faintedPokemon.Faint();
         Debug.Log(faintedPokemon.name + " has fainted");
         if (faintedPokemon.isPlayerPokemon)
         {
             Debug.Log(battlingPokemon[1].name + " gained " + (((faintedPokemon.level * faintedPokemon.baseStatTotal * ExpMultiplier / 5) * Mathf.Pow(((2 * faintedPokemon.level + 10) / (faintedPokemon.level + battlingPokemon[0].level + 10)), 2.5f) + 1) * 1.4f) + "Exp");
             battlingPokemon[1].GetExp(((faintedPokemon.level * faintedPokemon.baseStatTotal * ExpMultiplier / 5) * Mathf.Pow(((2 * faintedPokemon.level + 10) / (faintedPokemon.level + battlingPokemon[0].level + 10)), 2.5f) + 1)* 1.4f);
-            battlingPokemon[0] = encounter.CreatePokemon(5, true);
+            
         }
         else
         {
             Debug.Log(battlingPokemon[0].name + " gained " +(((faintedPokemon.level * faintedPokemon.baseStatTotal * ExpMultiplier / 5) * Mathf.Pow(((2 * faintedPokemon.level + 10) / (faintedPokemon.level + battlingPokemon[0].level + 10)), 2.5f) + 1) * 1.4f) + "Exp");
             battlingPokemon[0].GetExp(((faintedPokemon.level * faintedPokemon.baseStatTotal * ExpMultiplier / 5) * Mathf.Pow(((2 * faintedPokemon.level + 10) / (faintedPokemon.level + battlingPokemon[0].level + 10)), 2.5f) + 1) * 1.4f);
-            battlingPokemon[1] = encounter.CreatePokemon(8, true);
+            
+        }
+
+        
+    }
+
+    public void replacePokemon(bool playerPokemon)
+    {
+        if (playerPokemon)
+        {
+            battlingPokemon[0] = encounter.CreatePokemon(5, playerPokemon);
+        }
+        else
+        {
+            battlingPokemon[1] = encounter.CreatePokemon(8, playerPokemon);
+
         }
     }
+
+
     public void DevGiveExp()
     {
         battlingPokemon[0].GetExp(1000);

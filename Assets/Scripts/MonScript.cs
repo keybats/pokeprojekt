@@ -185,13 +185,24 @@ public class MonScript : MonoBehaviour
 
     public void Faint()
     {
-        combatManager = FindObjectOfType<CombatManager>();
-        combatManager.OnPokeFaint(GetComponent<MonScript>());
+        
+        //combatManager.OnPokeFaint(GetComponent<MonScript>());
         for (int i = 0; i < 4; i++)
         {
             moves[i].SelfDestruct();
         }
-        Destroy(gameObject);
+        //Destroy(gameObject);
+    }
+
+    public void removeFromBattle()
+    {
+        if (hasFainted)
+        {
+            combatManager = FindObjectOfType<CombatManager>();
+            combatManager.replacePokemon(isPlayerPokemon);
+            Destroy(gameObject);
+        }
+
     }
 
     public void GetExp(float expGain)

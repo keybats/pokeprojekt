@@ -67,6 +67,14 @@ public class AttackScript : MonoBehaviour
     }
     public void SelfDestruct()
     {
-        Destroy(gameObject);
+        if(gameObject != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Huh?");
+        }
+        
     }
 }

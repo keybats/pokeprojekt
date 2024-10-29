@@ -72,7 +72,7 @@ public class EncounterManager : MonoBehaviour
 
     public MonScript CreatePokemon(int level, bool isPlayerPokemon)
     {
-        GameObject p = Instantiate(pokemonTemplate, new Vector3(100f, 100f, 100f), transform.rotation);
+        GameObject p = Instantiate(pokemonTemplate, new Vector3(100f, 100f, 100f), transform.rotation, gameObject.transform);
         
         MonScript instantiatedMon = p.GetComponent<MonScript>();
         BaseMons instantiatedBaseMon = availableBasePokemon[Random.Range(0, availableBasePokemon.Count)];
