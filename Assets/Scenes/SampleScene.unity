@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 32820051}
   - component: {fileID: 32820053}
   - component: {fileID: 32820052}
+  - component: {fileID: 32820054}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -204,6 +205,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 32820050}
   m_CullTransparentMesh: 1
+--- !u!114 &32820054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32820050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537ccd120a12a8d4f9fa1bac30d2f9a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &44399765
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,6 +471,7 @@ GameObject:
   - component: {fileID: 189079627}
   - component: {fileID: 189079629}
   - component: {fileID: 189079628}
+  - component: {fileID: 189079630}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -528,6 +542,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189079626}
   m_CullTransparentMesh: 1
+--- !u!114 &189079630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189079626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537ccd120a12a8d4f9fa1bac30d2f9a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &207500191
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +698,7 @@ GameObject:
   - component: {fileID: 361918315}
   - component: {fileID: 361918317}
   - component: {fileID: 361918316}
+  - component: {fileID: 361918318}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -740,6 +767,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361918314}
   m_CullTransparentMesh: 1
+--- !u!114 &361918318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361918314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537ccd120a12a8d4f9fa1bac30d2f9a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &453122209
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,6 +790,7 @@ GameObject:
   - component: {fileID: 453122210}
   - component: {fileID: 453122212}
   - component: {fileID: 453122211}
+  - component: {fileID: 453122213}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -819,6 +859,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 453122209}
   m_CullTransparentMesh: 1
+--- !u!114 &453122213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453122209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537ccd120a12a8d4f9fa1bac30d2f9a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &511445624
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,7 +1167,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 438, y: 298.5}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &559471791
@@ -1371,6 +1423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c6d6288890ee814d8969f76a7897405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatLog: {fileID: 2078291862}
   testMove: {fileID: 0}
 --- !u!4 &1121912565
 Transform:
@@ -1779,7 +1832,7 @@ GameObject:
   - component: {fileID: 1988534096}
   - component: {fileID: 1988534095}
   m_Layer: 5
-  m_Name: Attacktest
+  m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1999,7 +2052,7 @@ GameObject:
   - component: {fileID: 2078291863}
   - component: {fileID: 2078291862}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Combat Log
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2021,8 +2074,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -421.74655, y: -224.88174}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -394.97223, y: 59.0401}
+  m_SizeDelta: {x: 212.0555, y: 477.9198}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2078291862
 MonoBehaviour:

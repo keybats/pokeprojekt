@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MonScript : MonoBehaviour
 {
+    
+    [SerializeField] TextMeshPro nameText;
     //public enum Stat {Hp, Attack, Defence, SpecialAttack, SpecialDefence, Speed, Evasion, Accuracy}
     float[] statMultiplier = { 0.25f, 0.286f, 0.333f, 0.4f, 0.5f, 0.667f, 1f, 1.5f, 2f, 2.5f, 3f, 3.5f, 4f };
 
@@ -12,7 +15,7 @@ public class MonScript : MonoBehaviour
     public bool isPlayerPokemon = false;
 
     public List<string> statuses;
-    public int[] statChanges; //0 hp 1 attack 2 defence 3 sp. attack 4 sp. defence 5 speed 6 evasion 7 accuracy
+    public int[] statChanges; //0 hp, 1 attack, 2 defence, 3 sp. attack, 4 sp. defence, 5 speed, 6 evasion, 7 accuracy
     public List<string> immunities;
 
     public int pokedexID;
@@ -64,6 +67,9 @@ public class MonScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        
+
         encounterManager = FindObjectOfType<EncounterManager>();
         
         statChanges = new int[8];
@@ -103,6 +109,9 @@ public class MonScript : MonoBehaviour
         SetStats(true);
 
         name = jsonReader.GetMon(pokedexID).name.english;
+        //Debug.Log(nameText);
+        nameText.text = name;
+
         isTemplate = false;
 
         baseStatTotal = jsonReader.GetMon(pokedexID).mon.HP + jsonReader.GetMon(pokedexID).mon.Attack + jsonReader.GetMon(pokedexID).mon.Defense + jsonReader.GetMon(pokedexID).mon.Sp_Attack + jsonReader.GetMon(pokedexID).mon.Sp_Defense + jsonReader.GetMon(pokedexID).mon.Speed;
@@ -210,7 +219,7 @@ public class MonScript : MonoBehaviour
         exp += expGain;
         while (exp >= requiredExp)
         {
-            Debug.Log(name + " leveled up!");
+            combatManager.UpdateLog(name + " leveled up!");
             level++;
             EncounterManager.BaseMons b = encounterManager.availableBasePokemon.Find(x => x.pokedexID == this.pokedexID);
             if (b.levelWherePokemonLearnsMove[numberOfMovesLearned] == level)
@@ -219,7 +228,7 @@ public class MonScript : MonoBehaviour
                 moves[0].SelfDestruct();
                 moves.Remove(moves[0]);
                 moves.Add(newMove);
-                Debug.Log(name + " learned " + newMove.name);
+                combatManager.UpdateLog(name + " learned " + newMove.name);
                 numberOfMovesLearned++;
             }
             SetStats(false);
@@ -227,9 +236,16 @@ public class MonScript : MonoBehaviour
         }
     }
 
-    public void SetMoves()
+    public void SetMoveNames()
     {
+        Debug.Log("Setting move names");
+        int i = 0;
+        foreach (AttackButtonNamer attackButton in GameObject.FindObjectsOfType<AttackButtonNamer>())
+        {
 
+            attackButton.SetButtonName(moves[i].name);
+            i++;
+        }
     }
 
 }

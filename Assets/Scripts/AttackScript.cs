@@ -40,11 +40,13 @@ public class AttackScript : MonoBehaviour
         this.isAutoHit = jsonReader.GetMove(id).isAutoHit;
         this.moveType = (CombatManager.Type)System.Enum.Parse(typeof(CombatManager.Type), jsonReader.GetMove(id).moveType);
         this.numberOfAdditionalAttacks = jsonReader.GetMove(id).numberOfAdditionalAttacks;
+
         if(jsonReader.GetMove(id).effect.status != null)
         {
             this.status = jsonReader.GetMove(id).effect.status;
             this.affectedPokemon = jsonReader.GetMove(id).effect.affectedPokemon;
         }
+
         if (jsonReader.GetMove(id).effect.stat != null)
         {
             this.stat = jsonReader.GetMove(id).effect.stat;

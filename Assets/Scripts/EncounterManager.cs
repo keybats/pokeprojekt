@@ -84,6 +84,8 @@ public class EncounterManager : MonoBehaviour
         {                   
             instantiatedMon.moves.Add(CreateAttack(instantiatedBaseMon.learnableMoves[i], instantiatedMon.transform));
         }
+
+        instantiatedMon.SetMoveNames();
         return p.GetComponent<MonScript>();
     }
     public AttackScript CreateAttack(int moveId, Transform parent) 

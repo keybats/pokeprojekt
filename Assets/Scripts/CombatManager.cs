@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombatManager : MonoBehaviour
 {
+    int roundCount = 1;
+    [SerializeField] Text combatLog;
     public AttackScript testMove;
     public enum Type {None, Normal, Fighting, Flying, Poison, Ground, Rock, Bug, Ghost, Steel, Fire, Water, Grass, Electric, Psychic, Ice, Dragon, Dark, Fairy }
     float sameTypeAttackBonus = 1f;
@@ -30,7 +33,7 @@ public class CombatManager : MonoBehaviour
     //float criticalChanceMultiplier;
     //weather
 
-    //attacker, defender
+    //[attacker, defender]
     float[,] TypeResistances = { { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, 
                                  { 1, 1, 1, 1, 1, 1, 0.5f, 1, 0, 0.5f, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
                                  { 1, 2, 1, 0.5f, 0.5f, 1, 2, 0.5f, 0, 2, 1, 1, 1, 1, 0.5f, 2, 1, 2, 0.5f },
@@ -51,7 +54,7 @@ public class CombatManager : MonoBehaviour
                                  { 1, 1, 0.5f, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 0.5f, 0.5f },
                                  { 1, 1, 2, 1, 0.5f, 1, 1, 1, 1, 0.5f, 0.5f, 1, 1, 1, 1, 1, 2, 2, 1 } };
 
-    // Start is called before the first frame update
+
     void Start()
     {
         encounter = GetComponent<EncounterManager>();
@@ -59,13 +62,7 @@ public class CombatManager : MonoBehaviour
         
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
 
-        }
-    }
 
     public void StartGame()
     {
@@ -115,42 +112,43 @@ public class CombatManager : MonoBehaviour
 
     public void Attack(MonScript target, MonScript attacker, AttackScript move)
     {
-        Debug.Log(attacker.name + " used " + move.name);
+        UpdateLog(attacker.name + " used " + move.name);
+        
         float resistance = TypeResistances[(int)move.moveType, (int)target.type[0]] * TypeResistances[(int)move.moveType, (int)target.type[1]];
         
         if (attacker.statuses.Contains("freeze") && Random.Range(0, 4) != 0)
         {
-            Debug.Log(attacker.name + " is frozen and cannot attack");
+            UpdateLog(attacker.name + " is frozen and cannot attack");
             return;
         }
         else if (attacker.statuses.Contains("freeze"))
         {
             attacker.statuses.Remove("freeze");
-            Debug.Log(attacker.name + " is no longer frozen");
+            UpdateLog(attacker.name + " is no longer frozen");
         }
 
         if (attacker.statuses.Contains("flinch"))
         {
-            Debug.Log(attacker.name + " flinched");
+            UpdateLog(attacker.name + " flinched");
             attacker.statuses.Remove("flinch");
             return;
         }
 
         if (attacker.statuses.Contains("confusion") && Random.Range(0, 100) < 33)
         {
-            Debug.Log(attacker.name + " hit itself in its confusion for " + attacker.TakeDamage(((( 2 * attacker.level / 5) + 2) * confusionAttackPower * (attacker.attack / target.defence) / 50) + 2) *
+            UpdateLog(attacker.name + " hit itself in its confusion for " + attacker.TakeDamage(((( 2 * attacker.level / 5) + 2) * confusionAttackPower * (attacker.attack / target.defence) / 50) + 2) *
                     (Random.Range(85f, 101f) / 100) + " damage");
             return;
         }
         else if (attacker.statuses.Contains("confusion") && Random.Range(0, 4) == 0)
         {
-            Debug.Log(attacker.name + " snapped out of its confusion");
+            UpdateLog(attacker.name + " snapped out of its confusion");
             attacker.statuses.Remove("confusion");
         } 
 
         if (attacker.statuses.Contains("paralysis") && Random.Range(0, 4) == 0)
         {
-            Debug.Log(attacker.name + " couldn't move due to being paralized");
+            UpdateLog(attacker.name + " couldn't move due to being paralized");
             return;
         }
 
@@ -176,14 +174,14 @@ public class CombatManager : MonoBehaviour
         {
             if (target.tempEvasion > attacker.tempAccuracy * (move.accuracy) * (Random.Range(100.0f, 201.0f) / 100) && !move.isAutoHit)
             {
-                Debug.Log("miss");
+                UpdateLog("miss");
             }
             else
             {
                 if (Random.Range(1.00f, 100f) < 4.18f)
                 {
                     critical = 1.5f;
-                    Debug.Log("Critical hit!");
+                    UpdateLog("Critical hit!");
                 }
                 else
                 {
@@ -193,31 +191,31 @@ public class CombatManager : MonoBehaviour
                 {
                     if (move.isPhysical)
                     {
-                        Debug.Log(target.TakeDamage(((((2 * attacker.level / 5) + 2) * move.power * (attacker.attack / target.defence) / 50) + 2) * critical *
-                        (Random.Range(85f, 101f) / 100) * sameTypeAttackBonus * resistance * burnDamageMultiplier));
+                        UpdateLog((target.TakeDamage(((((2 * attacker.level / 5) + 2) * move.power * (attacker.attack / target.defence) / 50) + 2) * critical *
+                        (Random.Range(85f, 101f) / 100) * sameTypeAttackBonus * resistance * burnDamageMultiplier)).ToString());
                     }
                     else
                     {
-                        Debug.Log(target.TakeDamage(((((2 * attacker.level / 5) + 2) * move.power * (attacker.specialAttack / target.specialDefence) / 50) + 2) * critical *
-                        (Random.Range(85f, 101f) / 100) * sameTypeAttackBonus * resistance));
+                        UpdateLog((target.TakeDamage(((((2 * attacker.level / 5) + 2) * move.power * (attacker.specialAttack / target.specialDefence) / 50) + 2) * critical *
+                        (Random.Range(85f, 101f) / 100) * sameTypeAttackBonus * resistance)).ToString());
                     }
                     if (resistance == 2)
                     {
-                        Debug.Log("it's super effective");
+                        UpdateLog("it's super effective");
                     }
                     else if (resistance == 0)
                     {
-                        Debug.Log("it had no effect");
+                        UpdateLog("it had no effect");
                         return;
                     }
                     else if (resistance < 1)
                     {
-                        Debug.Log("it wasn't very effective");
+                        UpdateLog("it wasn't very effective");
                     }
                     if (move.moveType == Type.Fire && target.statuses.Contains("freeze"))
                     {
                         target.statuses.Remove("freeze");
-                        Debug.Log(target.name + " was thawed by " + move.name);
+                        UpdateLog(target.name + " was thawed by " + move.name);
                     }
                 }
                 if (move.status != "")
@@ -225,7 +223,7 @@ public class CombatManager : MonoBehaviour
                     if (move.effectChance >= Random.Range(0f, 1.01f) && !(move.status == "paralysis" && target.type.Contains(Type.Ground) && move.moveType == Type.Electric) && !target.immunities.Contains(move.status))
                     {
                         target.statuses.Add(move.status);
-                        Debug.Log(target.name + " was affected by " + move.status);
+                        UpdateLog(target.name + " was affected by " + move.status);
                         target.SetStats(false);
                     }
                 }
@@ -275,12 +273,12 @@ public class CombatManager : MonoBehaviour
                         }
                         if (move.stages > 0)
                         {
-                            Debug.Log(affectedMon.name + "'s " + move.stat + " rises");
+                            UpdateLog(affectedMon.name + "'s " + move.stat + " rises");
                         }
                         
                         else
                         {
-                            Debug.Log(affectedMon.name + "'s " + move.stat + " decreases");
+                            UpdateLog(affectedMon.name + "'s " + move.stat + " decreases");
                         }
                         affectedMon.SetStats(false);
                     }
@@ -299,7 +297,9 @@ public class CombatManager : MonoBehaviour
     public void CombatRound(int moveNumber)
     {
         battlingPokemon.Sort(SortBySpeed);
-        
+
+        combatLog.text = "round " + roundCount;
+
         foreach (MonScript pokemon in battlingPokemon)
         {
             if (!pokemon.hasFainted)
@@ -367,11 +367,11 @@ public class CombatManager : MonoBehaviour
             pokemon.statuses.Remove("flinch");
             if (pokemon.statuses.Contains("poison"))
             {
-                Debug.Log(pokemon.name + " took " + pokemon.TakeDamage(pokemon.maxHp / 8) + " from poison");
+                UpdateLog(pokemon.name + " took " + pokemon.TakeDamage(pokemon.maxHp / 8) + " from poison");
             }
             if (pokemon.statuses.Contains("burn"))
             {
-                Debug.Log(pokemon.name + " took " + pokemon.TakeDamage(pokemon.maxHp / 16) + " from burning");
+                UpdateLog(pokemon.name + " took " + pokemon.TakeDamage(pokemon.maxHp / 16) + " from burning");
             }
             if (pokemon.statuses.Contains("confusion") && Random.Range(0, 4) == 0)
             {
@@ -384,20 +384,21 @@ public class CombatManager : MonoBehaviour
             }
         }
         BroadcastMessage("removeFromBattle");
+        roundCount++;
     }
     public void OnPokeFaint(MonScript faintedPokemon)
     {
         faintedPokemon.Faint();
-        Debug.Log(faintedPokemon.name + " has fainted");
+        UpdateLog(faintedPokemon.name + " has fainted");
         if (faintedPokemon.isPlayerPokemon)
         {
-            Debug.Log(battlingPokemon[1].name + " gained " + (((faintedPokemon.level * faintedPokemon.baseStatTotal * ExpMultiplier / 5) * Mathf.Pow(((2 * faintedPokemon.level + 10) / (faintedPokemon.level + battlingPokemon[0].level + 10)), 2.5f) + 1) * 1.4f) + "Exp");
+            UpdateLog(battlingPokemon[1].name + " gained " + (((faintedPokemon.level * faintedPokemon.baseStatTotal * ExpMultiplier / 5) * Mathf.Pow(((2 * faintedPokemon.level + 10) / (faintedPokemon.level + battlingPokemon[0].level + 10)), 2.5f) + 1) * 1.4f) + "Exp");
             battlingPokemon[1].GetExp(((faintedPokemon.level * faintedPokemon.baseStatTotal * ExpMultiplier / 5) * Mathf.Pow(((2 * faintedPokemon.level + 10) / (faintedPokemon.level + battlingPokemon[0].level + 10)), 2.5f) + 1)* 1.4f);
             
         }
         else
         {
-            Debug.Log(battlingPokemon[0].name + " gained " +(((faintedPokemon.level * faintedPokemon.baseStatTotal * ExpMultiplier / 5) * Mathf.Pow(((2 * faintedPokemon.level + 10) / (faintedPokemon.level + battlingPokemon[0].level + 10)), 2.5f) + 1) * 1.4f) + "Exp");
+            UpdateLog(battlingPokemon[0].name + " gained " +(((faintedPokemon.level * faintedPokemon.baseStatTotal * ExpMultiplier / 5) * Mathf.Pow(((2 * faintedPokemon.level + 10) / (faintedPokemon.level + battlingPokemon[0].level + 10)), 2.5f) + 1) * 1.4f) + "Exp");
             battlingPokemon[0].GetExp(((faintedPokemon.level * faintedPokemon.baseStatTotal * ExpMultiplier / 5) * Mathf.Pow(((2 * faintedPokemon.level + 10) / (faintedPokemon.level + battlingPokemon[0].level + 10)), 2.5f) + 1) * 1.4f);
             
         }
@@ -422,5 +423,11 @@ public class CombatManager : MonoBehaviour
     public void DevGiveExp()
     {
         battlingPokemon[0].GetExp(1000);
+    }
+
+    public void UpdateLog(string log)
+    {
+        Debug.Log("logging (Not the cutting down trees kind): " + log);
+        combatLog.text += "\n" + log;
     }
 }
