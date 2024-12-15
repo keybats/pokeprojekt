@@ -6,5 +6,3 @@ Programmet ska
 - slumpmässigt välja vilken personality pokémonen har och vilka IV:ar den har
 - generera pokémonens stats med en formel för hur man gör det. 
 - Slumpmässigt välja vilken ability, vilka moves och vilken item pokémonen har
-
-Just nu fungerar spelet i konsolen :/
