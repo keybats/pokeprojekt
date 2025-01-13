@@ -21,8 +21,8 @@ public class CombatManager : MonoBehaviour
 
 
 
-    [SerializeField] Queue<Vector2> playerPokemonPositions = new Queue<Vector2>();
-    [SerializeField] Queue<Vector2> enemyPokemonPositions = new Queue<Vector2>();
+    [SerializeField] List<Vector2> playerPokemonPositions = new List<Vector2>();
+    [SerializeField] List<Vector2> enemyPokemonPositions = new List<Vector2>();
 
     float burnDamageMultiplier;
     readonly float ExpMultiplier = 0.21f;
@@ -86,26 +86,26 @@ public class CombatManager : MonoBehaviour
             Debug.Log(position.name + " " + position.transform.position);
             if (position.isPlayerPosition)
             {
-                playerPokemonPositions.Enqueue(position.transform.position);
+                playerPokemonPositions.Add(position.transform.position);
             }
             else
             {
-                enemyPokemonPositions.Enqueue(position.transform.position);
+                enemyPokemonPositions.Add(position.transform.position);
             }
         }
 
         foreach (MonScript pokemon in battlingPokemon)
         {
-            
+
             if (pokemon.isPlayerPokemon)
             {
-                Debug.Log(pokemon.name + " " + pokemon.transform.position + " moving to " + playerPokemonPositions.Peek());
+                Debug.Log(pokemon.name + " " + pokemon.transform.position + " moving to " + playerPokemonPositions[0]);
                 
-                pokemon.transform.position = playerPokemonPositions.Dequeue();
+                pokemon.transform.position = playerPokemonPositions[0];
             }
             else
             {
-                pokemon.transform.position = enemyPokemonPositions.Dequeue();
+                pokemon.transform.position = enemyPokemonPositions[0];
             }
         }
     }
@@ -383,7 +383,7 @@ public class CombatManager : MonoBehaviour
                 
             }
         }
-        BroadcastMessage("removeFromBattle");
+        BroadcastMessage("RemoveFromBattle");
         roundCount++;
     }
     public void OnPokeFaint(MonScript faintedPokemon)
@@ -406,16 +406,17 @@ public class CombatManager : MonoBehaviour
         
     }
 
-    public void replacePokemon(bool playerPokemon)
+    public void ReplacePokemon(bool playerPokemon)
     {
         if (playerPokemon)
         {
             battlingPokemon[0] = encounter.CreatePokemon(5, playerPokemon);
+            battlingPokemon[0].transform.position = playerPokemonPositions[0];
         }
         else
         {
             battlingPokemon[1] = encounter.CreatePokemon(8, playerPokemon);
-
+            battlingPokemon[1].transform.position = enemyPokemonPositions[0];
         }
     }
 
@@ -427,7 +428,7 @@ public class CombatManager : MonoBehaviour
 
     public void UpdateLog(string log)
     {
-        Debug.Log("logging (Not the cutting down trees kind): " + log);
+        //Debug.Log("logging (Not the cutting down trees kind): " + log);
         combatLog.text += "\n" + log;
     }
 }

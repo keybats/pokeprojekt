@@ -203,12 +203,13 @@ public class MonScript : MonoBehaviour
         //Destroy(gameObject);
     }
 
-    public void removeFromBattle()
+    public void RemoveFromBattle()
     {
         if (hasFainted)
         {
+            Debug.Log("removing fainted pokemon");
             combatManager = FindObjectOfType<CombatManager>();
-            combatManager.replacePokemon(isPlayerPokemon);
+            combatManager.ReplacePokemon(isPlayerPokemon);
             Destroy(gameObject);
         }
 
@@ -239,12 +240,12 @@ public class MonScript : MonoBehaviour
     public void SetMoveNames()
     {
         Debug.Log("Setting move names");
-        int i = 0;
+       
         foreach (AttackButtonNamer attackButton in GameObject.FindObjectsOfType<AttackButtonNamer>())
         {
 
-            attackButton.SetButtonName(moves[i].name);
-            i++;
+            attackButton.SetButtonName(moves[int.Parse(attackButton.name)].name);
+            
         }
     }
 

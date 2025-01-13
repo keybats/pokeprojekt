@@ -84,8 +84,11 @@ public class EncounterManager : MonoBehaviour
         {                   
             instantiatedMon.moves.Add(CreateAttack(instantiatedBaseMon.learnableMoves[i], instantiatedMon.transform));
         }
+        if (isPlayerPokemon)
+        {
+            instantiatedMon.SetMoveNames();
 
-        instantiatedMon.SetMoveNames();
+        }
         return p.GetComponent<MonScript>();
     }
     public AttackScript CreateAttack(int moveId, Transform parent) 
