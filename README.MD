@@ -10,4 +10,5 @@ The pokemon only have the base stats and types associated with the pokemon, thei
 ### Known bugs:
 
 Attack buttons occasionally show the wrong attack name.
+
 Exp will sometimes be awarded to the wrong pokemon.
