@@ -8,5 +8,6 @@ Clicking one of the moves will start the combat round and your pokemon will use 
 The pokemon only have the base stats and types associated with the pokemon, their moves are randomly selected from a small list.
 
 ### Known bugs:
-Attack buttons occasionally show the wrong attack name
-Exp will sometimes be awarded to the wrong pokemon
+
+Attack buttons occasionally show the wrong attack name.
+Exp will sometimes be awarded to the wrong pokemon.
